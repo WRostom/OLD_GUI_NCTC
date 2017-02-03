@@ -1,6 +1,76 @@
 $primary-color: #333;
+$accent-color: rgb(251, 219, 0);
 
-body{
-  background-color: $primary-color;
-  
+@font-face {
+  font-family: RobotoThin;
+  src: url('../fonts/Roboto/RobotoThin.ttf');
+}
+@font-face {
+  font-family: RobotoRegular;
+  src: url('../fonts/Roboto/RobotoRegular.ttf');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: RobotoThin;
+  overflow: hidden;
+}
+
+#content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  position: relative;
+  width: 100%;
+
+  #modulePicker {
+    background-color: #ffc107;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 100%;
+    width: 50%;
+
+    #moduleTitle {
+      height: 50px;
+      width: 100%;
+      position: relative;
+
+      h1 {
+        text-align: center;
+        margin-top: 20px;
+        color: white;
+      }
+    }
+
+    #moduleLocation {
+      background-color: #ffb300;
+      width: 80%;
+      position: relative;
+      height: auto;
+      margin: 0 auto;
+      border-radius: 4px;
+      box-shadow: 0px 0px 5px #333 inset;
+
+      @import 'module';
+    }
+  }
+
+  #workArea {
+    // background-color: #333;
+    background-image: url('../img/blueprint-pattern-2.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+
+    @import 'module';
+  }
 }

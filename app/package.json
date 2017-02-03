@@ -4,13 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "babel babel-js -d js"
+    "babel": "babel js -d dist/test",
+    "webpack": "webpack --progress --watch"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
     "babel-preset-env": "^1.1.8",
-    "webpack": "^2.2.0"
+    "babel-preset-react": "^6.22.0",
+    "eslint": "^3.14.1",
+    "eslint-plugin-react": "^6.9.0",
+    "interact.js": "^1.2.8",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "interact.js": "^1.2.8",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-tap-event-plugin": "^2.0.1"
   }
 }
