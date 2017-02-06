@@ -1,3 +1,6 @@
+.dynamicElement {
+  z-index: 10; }
+
 .module {
   display: flex;
   position: relative;
@@ -10,17 +13,18 @@
   .module .moduleData {
     position: relative;
     height: 100%;
-    width: 80%;
+    width: 80px;
     background-color: white; }
     .module .moduleData p {
       text-align: center;
       font-family: RobotoRegular;
       margin-top: 15px;
       pointer-events: none;
-      cursor: move; }
+      cursor: move;
+      user-select: none; }
   .module .connectionPoint {
     position: relative;
-    width: 10%;
+    width: 10px;
     height: 100%;
     background-color: #333; }
 
