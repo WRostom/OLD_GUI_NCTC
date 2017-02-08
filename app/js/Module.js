@@ -21,9 +21,9 @@ export default class Module extends React.Component {
       )
   }
 
-  Draggable(action1, action2, value, number){
+  Draggable(action1, action2, value, number, draggable){
       return(
-        <div className={'module draggable dynamicElement' + number}>
+        <div ref="dragref" draggable="true" className={'module dynamicElement' + number}>
             <div className="connectionPoint" onClick={action2}></div>
             <div className="moduleData" onMouseDown={action1}>
                 <p>{value}</p>
@@ -36,7 +36,7 @@ export default class Module extends React.Component {
   render(){
     const dragorNah = this.props.dragorNah;
     if(dragorNah){
-      return this.Draggable(this.props.action1, this.props.action2, this.props.value, this.props.number);
+      return this.Draggable(this.props.action1, this.props.action2, this.props.value, this.props.number, this.props.draggable);
     } else {
       return this.nonDraggable(this.props.action, this.props.value);
     }
