@@ -21,12 +21,11 @@ body {
   width: 100%;
   height: 100%; }
 
-.dynamicElement {
-  z-index: 10; }
+.inworkArea {
+  position: absolute; }
 
 .module {
   display: flex;
-  position: relative;
   height: 50px;
   width: 100px;
   border-radius: 4px;

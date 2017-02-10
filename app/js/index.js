@@ -17,9 +17,6 @@ const Values = [
 ];
 var temp = [];
 var browserDimensions;
-var workAreaPosition;
-var workAreaWidth;
-var modulePickerWidth;
 var initalmodulePositions;
 var moduleMoved;
 class MainPage extends React.Component {
@@ -27,55 +24,40 @@ class MainPage extends React.Component {
         super(props);
         this.addElement = this.addElement.bind(this);
         this.dragMoveListener = this.dragMoveListener.bind(this);
-        this.putItem = this.putItem.bind(this);
         this.state = {
-            elements: []
+            elements: [],
         }
-        browserDimensions = [document.documentElement.clientHeight, document.documentElement.clientWidth];
 
     }
     componentDidMount() {
-        workAreaWidth = document.getElementById('workArea').clientWidth;
-        workAreaPosition = [document.getElementById('workArea').getBoundingClientRect().top, document.getElementById('workArea').getBoundingClientRect().bottom, document.getElementById('workArea').getBoundingClientRect().left, document.getElementById('workArea').getBoundingClientRect().right];
-        modulePickerWidth = document.getElementById('modulePicker').clientWidth;
-        var rendered = Array.prototype.slice.call(document.querySelectorAll('.module'));
-        var initalmodulePositions = rendered.map((rendered) => {
-            return rendered.getBoundingClientRect();
-        });
+        // var rendered = Array.prototype.slice.call(document.querySelectorAll('.module'));
+        // var initalmodulePositions = rendered.map((rendered) => {
+        //     return rendered.getBoundingClientRect();
+        // });
         var dragged;
-        var offset_data;
-        var Dleft;
-        var Dtop;
         this.startDragListen();
+        var startPosition;
+        var wantedPosition;
+
         document.addEventListener("dragstart", function(e) {
-            // store a ref. on the dragged elem
-            var style = window.getComputedStyle(e.target, null);
-            offset_data = (parseInt(style.getPropertyValue("left"), 10) - e.clientX) + ',' + (parseInt(style.getPropertyValue("top"), 10) - event.clientY);
-            e.dataTransfer.setData("text/plain", offset_data);
             dragged = e.target;
+            e.dataTransfer.setData('text', 'anything'); //Needed for Firefox and IE
         }, false);
 
         document.addEventListener("dragover", function(e) {
-            var offset = offset_data.split(',');
-            dragged.style.left = (e.clientX + parseInt(offset[0], 10)) + 'px';
-            dragged.style.top = (e.clientY + parseInt(offset[1], 10)) + 'px';
+            wantedPosition = [Math.abs(e.clientX), Math.abs(e.clientY)];
             e.preventDefault();
-        }, false);
-
-        document.addEventListener("dragend", function(e) {
-            // dragged.removeAttribute("draggable");
-            // dragged.className += " draggable";
-            // e.target.setAttribute('data-x', e.target.style.left);
-            // e.target.setAttribute('data-y', e.target.style.top);
         }, false);
 
         document.addEventListener("drop", (e) => {
             if (e.target.id == "workArea") {
-                var offset = offset_data.split(',');
-                dragged.style.left = (e.clientX + parseInt(offset[0], 10)) + 'px';
-                dragged.style.top = (e.clientY + parseInt(offset[1], 10)) + 'px';
-                dragged.parentNode.removeChild(dragged);
-                e.target.appendChild(dragged);
+                var clone = dragged.cloneNode(true);
+                e.target.appendChild(clone);
+                clone.className += " draggable inworkArea";
+                clone.removeAttribute("draggable");
+                clone.style.transform = `translate(${(wantedPosition[0]-30)}px, ${(wantedPosition[1]-20)}px)`;
+                clone.setAttribute("data-x", wantedPosition[0]);
+                clone.setAttribute("data-y", wantedPosition[1]);
             }
             e.preventDefault();
         }, false);
@@ -97,7 +79,6 @@ class MainPage extends React.Component {
             },
             autoScroll: false,
             onmove: this.dragMoveListener,
-            onend: this.putItem
         });
     }
 
@@ -108,13 +89,6 @@ class MainPage extends React.Component {
         target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
         target.setAttribute('data-x', x);
         target.setAttribute('data-y', y);
-    }
-
-    putItem(e){
-      if(e.target.getBoundingClientRect().right <= workAreaPosition[3]){
-        e.target.parentNode.removeChild(e.target);
-        document.getElementById('workArea').appendChild(e.target);
-      }
     }
 
     componentWillUpdate(a, b) {
@@ -134,21 +108,15 @@ class MainPage extends React.Component {
 
     initialModules(Values) {
         return Values.map((Values, index) => {
-            return (<Module ref="hello" dragorNah={true} key={index} value={Values} number={index} />)
-        });
-    }
-
-    newModules(Values) {
-        return Values.map((Values, index) => {
-            return <Module ref="drag" dragorNah={true} key={index} value={Values} number={index}/>
+            return (<Module ref="hello" dragorNah={true} key={index} value={Values} number={index}/>)
         });
     }
 
     render() {
+        this.initialModules(Values)
         return (
             <div id="content">
                 <div id="workArea">
-                    {this.newModules(this.state.elements)}
                 </div>
                 <div id="modulePicker">
                     <div id="moduleTitle">
