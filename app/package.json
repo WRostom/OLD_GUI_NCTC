@@ -10,16 +10,16 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "babel-cli": "^6.22.2",
-    "babel-core": "^6.22.1",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.2.10",
-    "babel-preset-env": "^1.1.8",
-    "babel-preset-react": "^6.22.0",
-    "eslint": "^3.14.1",
-    "eslint-plugin-react": "^6.9.0",
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.2.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
+    "babel-preset-react": "^6.23.0",
+    "eslint": "^3.18.0",
+    "eslint-plugin-react": "^6.10.3",
     "interact.js": "^1.2.8",
-    "webpack": "^2.2.1"
+    "webpack": "^2.3.2"
   },
   "dependencies": {
     "interact.js": "^1.2.8",

@@ -6,7 +6,6 @@ import './dragModule.js';
 import Module from './Module.js';
 import interact from 'interact.js';
 
-var keyCode = 0;
 const Values = [
     "Forward",
     "Backward",
@@ -16,46 +15,46 @@ const Values = [
     "While-Loop"
 ];
 var temp = [];
-var browserDimensions;
 var initalmodulePositions;
-var moduleMoved;
 class MainPage extends React.Component {
     constructor(props) {
         super(props);
-        this.addElement = this.addElement.bind(this);
         this.dragMoveListener = this.dragMoveListener.bind(this);
         this.state = {
-            elements: [],
+            elements: []
         }
 
     }
     componentDidMount() {
-        // var rendered = Array.prototype.slice.call(document.querySelectorAll('.module'));
-        // var initalmodulePositions = rendered.map((rendered) => {
-        //     return rendered.getBoundingClientRect();
-        // });
-        var dragged;
         this.startDragListen();
-        var startPosition;
+        var dragged;
         var wantedPosition;
-
+        var startPosition;
+        var clone;
         document.addEventListener("dragstart", function(e) {
             dragged = e.target;
+            clone = dragged.cloneNode(true);
+            startPosition = [
+                Math.abs(e.clientX),
+                Math.abs(e.clientY)
+            ];
             e.dataTransfer.setData('text', 'anything'); //Needed for Firefox and IE
         }, false);
 
         document.addEventListener("dragover", function(e) {
-            wantedPosition = [Math.abs(e.clientX), Math.abs(e.clientY)];
+            wantedPosition = [
+                Math.abs(e.clientX),
+                Math.abs(e.clientY)
+            ];
             e.preventDefault();
         }, false);
 
         document.addEventListener("drop", (e) => {
             if (e.target.id == "workArea") {
-                var clone = dragged.cloneNode(true);
                 e.target.appendChild(clone);
                 clone.className += " draggable inworkArea";
                 clone.removeAttribute("draggable");
-                clone.style.transform = `translate(${(wantedPosition[0]-30)}px, ${(wantedPosition[1]-20)}px)`;
+                clone.style.transform = `translate(${ (wantedPosition[0] - 30)}px, ${ (wantedPosition[1] - 20)}px)`;
                 clone.setAttribute("data-x", wantedPosition[0]);
                 clone.setAttribute("data-y", wantedPosition[1]);
             }
@@ -78,7 +77,7 @@ class MainPage extends React.Component {
                 }
             },
             autoScroll: false,
-            onmove: this.dragMoveListener,
+            onmove: this.dragMoveListener
         });
     }
 
@@ -91,21 +90,6 @@ class MainPage extends React.Component {
         target.setAttribute('data-y', y);
     }
 
-    componentWillUpdate(a, b) {
-        // console.log(b)
-    }
-
-    addElement(e) {
-        if (e.target.className == "moduleData") {
-            if (e.target.parentNode.getBoundingClientRect().right <= workAreaPosition[3]) {
-                console.log(e.target.parentNode.className.substring(17))
-                this.setState({
-                    elements: this.state.elements.concat([e.target.firstChild.innerHTML])
-                });
-            }
-        }
-    }
-
     initialModules(Values) {
         return Values.map((Values, index) => {
             return (<Module ref="hello" dragorNah={true} key={index} value={Values} number={index}/>)
@@ -113,10 +97,11 @@ class MainPage extends React.Component {
     }
 
     render() {
-        this.initialModules(Values)
+
         return (
             <div id="content">
                 <div id="workArea">
+                     {this.initialModules(this.state.elements)}
                 </div>
                 <div id="modulePicker">
                     <div id="moduleTitle">
