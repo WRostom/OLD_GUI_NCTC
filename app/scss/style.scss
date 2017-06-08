@@ -4,6 +4,7 @@ $accent-color: rgba(255, 193, 7, 1);
   font-family: RobotoThin;
   src: url('../fonts/Roboto/RobotoThin.ttf');
 }
+
 @font-face {
   font-family: RobotoRegular;
   src: url('../fonts/Roboto/RobotoRegular.ttf');
@@ -29,34 +30,31 @@ body {
   width: 100%;
   height: 100%;
 }
-@import 'module';
 
+@import 'module';
 #content {
   display: flex;
   flex-direction: row;
   height: 100%;
   position: relative;
   width: 100%;
-
   #modulePicker {
     background-color: $accent-color;
-    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
     height: 100%;
     width: 33.5%;
     z-index: 5;
-
+    position: relative;
     #moduleTitle {
       height: 50px;
       width: 100%;
       position: relative;
-
       h1 {
         text-align: center;
         margin-top: 20px;
         color: white;
       }
     }
-
     #moduleLocation {
       background-color: rgba(255, 179, 0, 1);
       display: flex;
@@ -70,9 +68,9 @@ body {
       box-shadow: 0 0 5px #333 inset;
     }
   }
-
   #workArea {
     background-image: url('../img/blueprint-pattern-2.jpg');
+    position: relative;
     background-size: cover;
     display: flex;
     flex-direction: row;
@@ -80,12 +78,29 @@ body {
     width: 66.5%;
     height: 100%;
     overflow: hidden;
+    #runcodeButton {
+      width: 53px;
+      height: 53px;
+      background-color: #ff0077;
+      border-radius: 50%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+      transition: box-shadow 0.5s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    #runcodeButton:hover {
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
   }
-
   #canvas {
     position: absolute;
-    width:100%;
-    height:100%;
-
+    width: 100%;
+    height: 100%;
   }
 }
