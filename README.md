@@ -1,2 +1,2 @@
-# Grad-Project (WIP)
-A method of teaching children ages 10+ programming.
+# [Earlier design] GUI_NCTC
+Programming language for teaching kid 5+ basic programming concepts
